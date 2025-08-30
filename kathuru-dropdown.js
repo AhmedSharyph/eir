@@ -1,4 +1,4 @@
-// kathuru-dropdown.js
+// kathuru-dropdown.js (Standalone, minimal)
 class KathuruDropdown {
   constructor(selector = '.kathuru-dropdown') {
     this.dropdowns = document.querySelectorAll(selector);
@@ -8,32 +8,42 @@ class KathuruDropdown {
   init() {
     this.dropdowns.forEach(dropdown => {
       const optionsData = dropdown.dataset.options ? JSON.parse(dropdown.dataset.options) : [];
-      
+
+      // Create input box
       const selectBox = document.createElement('input');
       selectBox.type = 'text';
-      selectBox.placeholder = dropdown.dataset.placeholder || 'Select...';
       selectBox.className = 'select-box';
+      selectBox.placeholder = dropdown.dataset.placeholder || 'Select...';
 
+      // Create dropdown list container
       const list = document.createElement('div');
       list.className = 'dropdown-list';
 
+      // Create search box inside dropdown
       const searchBox = document.createElement('input');
       searchBox.type = 'text';
       searchBox.className = 'search-box';
       searchBox.placeholder = 'Search...';
       list.appendChild(searchBox);
 
+      // Populate options
       optionsData.forEach(opt => {
         const div = document.createElement('div');
         div.textContent = opt;
         list.appendChild(div);
       });
 
+      // Append elements to dropdown container
       dropdown.appendChild(selectBox);
       dropdown.appendChild(list);
 
-      const options = Array.from(list.querySelectorAll('div')).slice(1); // skip search
+      // Get actual option elements (skip search)
+      const options = Array.from(list.querySelectorAll('div')).slice(1);
 
+      // Set first option as default
+      if (options.length > 0) selectBox.value = options[0].textContent;
+
+      // Open/close dropdown
       selectBox.addEventListener('click', () => {
         list.classList.toggle('show');
         searchBox.value = '';
@@ -41,8 +51,10 @@ class KathuruDropdown {
         searchBox.focus();
       });
 
+      // Filter options
       searchBox.addEventListener('input', e => this.filterOptions(e.target.value, options));
 
+      // Click option
       options.forEach(item => {
         item.addEventListener('click', () => {
           selectBox.value = item.textContent;
@@ -50,8 +62,9 @@ class KathuruDropdown {
         });
       });
 
+      // Close if clicked outside
       document.addEventListener('click', e => {
-        if(!dropdown.contains(e.target)) list.classList.remove('show');
+        if (!dropdown.contains(e.target)) list.classList.remove('show');
       });
     });
   }
@@ -63,6 +76,5 @@ class KathuruDropdown {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  new KathuruDropdown();
-});
+// Initialize after DOM loaded
+document.addEventListener('DOMContentLoaded', () => new KathuruDropdown());
