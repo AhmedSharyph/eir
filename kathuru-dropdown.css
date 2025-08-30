@@ -1,0 +1,67 @@
+/* kathuru-dropdown.css */
+.kathuru-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.kathuru-dropdown .select-box {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+.kathuru-dropdown .select-box::placeholder { color: #999; }
+
+.kathuru-dropdown .dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+  margin-top: 2px;
+}
+
+.kathuru-dropdown .dropdown-list.show { display: block; }
+
+.kathuru-dropdown .dropdown-list div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.kathuru-dropdown .dropdown-list div:hover { background-color: #f5f5f5; }
+
+.kathuru-dropdown .search-box {
+  width: 95%;
+  margin: 6px auto;
+  padding: 6px;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+}
+
+@media (max-width: 480px){
+  .kathuru-dropdown { max-width: 100%; }
+  .kathuru-dropdown .select-box { padding: 8px; font-size: 13px; }
+  .kathuru-dropdown .dropdown-list div { padding: 6px; font-size: 13px; }
+  .kathuru-dropdown .search-box { padding: 5px; font-size: 13px; }
+}
+
+@media (min-width: 481px) and (max-width: 768px){
+  .kathuru-dropdown { max-width: 200px; }
+  .kathuru-dropdown .select-box { padding: 9px; font-size: 13px; }
+}
